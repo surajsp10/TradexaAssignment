@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active navbar-expand-lg navbar-brand ">
+        <button type="button" class="btn btn-warning">IMDB</button>
+      </li>
+     
+      <form class="form-inline my-4 my-lg-0">
+     
+        <!-- <input class="form-control input-group ng-untouched ng-pristine ng-valid" type="search"  placeholder="Search by Movie Name" (keyup)="search($event)"> -->
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search for the movie</button> -->
+      </form>
+    </ul>
+  
+  </div>
+</nav>
+
+
+
+
+
+<div class="col-md-4 offset-md-4 mt-5"> <br><br>
+    <div class="input-group">
+        <div class="input-group-prepend"> 
+            <span class="input-group-text">Search</span>
+        </div>
+        <input class="form-control ng-untouched ng-pristine ng-valid" type="search"  placeholder="Search by Movie Name" (keyup)="search($event)">
+    </div>
+</div> 
+<div class="row">
+    <div class="container">
+        <div class="col-sm-10  card card-lg  mt-5 ml-5 " *ngFor="let movie of movies"style="">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <img src="{{movie.Poster}}" alt="image not released" style="height: 100%;width: 100%;" >
+                    </div>
+                    <div class="col-sm-5  container">
+
+                        <div class="movie details mt-2">
+                            <h2>{{movie.Title}}</h2>
+                        
+                          <h4>{{movie.Year}}</h4>  
+                        
+                              
+                   <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-dark mt-2" data-toggle="modal" data-target="#exampleModalCenter" (click)="click(movie)">
+    Write a Review >>
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Review</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Review Form -->
+
+
+          <form action="" [formGroup]="form" (ngSubmit)="ReviewData(form)">
+           
+            <div class="form-group mt-4">
+             <label> Enter your Email-id</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email-id" formControlName="email">
+                <div *ngIf = "email.touched && email.invalid">
+                    <p *ngIf="email.errors.required|| email.dirty" class="text-danger">*Please enter the correct email or valid email.</p>
+                    </div>
+            </div>
+            <div class="form-group mt-2">
+           
+              <label for="review">Enter your review</label>
+              <textarea class="form-control"  name="review" type="text"  id="review" rows="3" formControlName="review" placeholder="Enter movie review" required maxlength="400"></textarea>
+                <!-- <input type="text" name="review" id="review" class="form-control " placeholder="Enter movie review" formControlName="review"> -->
+                (*maxlength is 400 charecters)
+                <div  *ngIf = "review.touched && review.invalid">
+                    <p *ngIf = "review.errors.required" class="text-danger">*this field is required</p>
+                   
+            </div>
+            </div>
+           
+         
+    
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submi" class="btn btn-primary"  [disabled]="form.invalid" >Submit</button>
+            </div>
+        </form>
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+                    </div> 
+                    </div>
+                </div>
+              
+             
+            </div>
+            </div>
+    </div>
+</div>
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
